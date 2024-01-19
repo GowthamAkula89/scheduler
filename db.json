@@ -1,3 +1,13 @@
 {
-  "schedules": []
+  "schedules": [
+    {
+      "id": "a05c",
+      "title": "gaerf",
+      "description": "axfsd",
+      "subject": "",
+      "frequency": "Daily",
+      "repeat": "",
+      "selectedTime": ""
+    }
+  ]
 }
