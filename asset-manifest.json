@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/GowthamAkula89/scheduler.git/static/css/main.e01f9b6c.css",
+    "main.js": "/GowthamAkula89/scheduler.git/static/js/main.e55ff00d.js",
+    "static/js/787.ce32b48b.chunk.js": "/GowthamAkula89/scheduler.git/static/js/787.ce32b48b.chunk.js",
+    "index.html": "/GowthamAkula89/scheduler.git/index.html",
+    "main.e01f9b6c.css.map": "/GowthamAkula89/scheduler.git/static/css/main.e01f9b6c.css.map",
+    "main.e55ff00d.js.map": "/GowthamAkula89/scheduler.git/static/js/main.e55ff00d.js.map",
+    "787.ce32b48b.chunk.js.map": "/GowthamAkula89/scheduler.git/static/js/787.ce32b48b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e01f9b6c.css",
+    "static/js/main.e55ff00d.js"
+  ]
+}
