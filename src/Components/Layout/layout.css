@@ -1,0 +1,18 @@
+.layout{
+    margin-top: 48px;
+    display: flex;
+}
+.left-nav{
+    width: 72px;
+    height: 100vh;
+    background-color: #391E5A;
+}
+.right-layout{
+    width: 100vw;
+}
+.tab{
+    height: 40px;
+    background: #D8D2DE;
+    border-top: 1px solid #D8D2DE;
+    border-bottom: 1px solid #D8D2DE;
+}

@@ -1,0 +1,32 @@
+.table-header{
+    background-color: gray;
+    height: 42px;
+}
+.table-header-text{
+    font-size: 14px;
+    font-weight: 600;
+    text-align: start;
+}
+.table-body-text{
+    font-size: 14px;
+    font-weight: 400;
+    text-align: start;
+}
+.table-body-action{
+    text-align: start;
+    position: relative;
+}
+.action-edit{
+    width: 16px !important;
+    height: 16px !important;
+    fill: #000;
+}
+.sheduler-card-form{
+    position: absolute;
+    overflow-y: auto;
+    /* z-index: 1; */
+    /* display: flex; */
+    /* align-items: end; */
+    top: 32px;
+    right: 85px;
+}
