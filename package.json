@@ -16,12 +16,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "CI='' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server --watch db.json --port 3001",
     "dev": "concurrently \"npm start\" \"npm run server\""
+    
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +45,8 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
-  }
+    "concurrently": "^8.2.2",
+    "gh-pages": "^6.1.1"
+  },
+  "homepage": "https://github.com/GowthamAkula89/scheduler.git"
 }
