@@ -1,3 +1,22 @@
 {
-  "schedules": []
+  "schedules": [
+    {
+      "title": "Meeting ",
+      "description": "React components discussion",
+      "subject": "Project Meeting",
+      "frequency": "Daily",
+      "repeat": "",
+      "selectedTime": "09:00",
+      "id": 1
+    },
+    {
+      "title": "Discussion",
+      "description": "JavaScript and React discussion",
+      "subject": "Training",
+      "frequency": "Weekly",
+      "repeat": "F",
+      "selectedTime": "14:00",
+      "id": 2
+    }
+  ]
 }
