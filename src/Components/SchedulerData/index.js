@@ -4,16 +4,26 @@ import Search from '../Search';
 import AddButton from '../AddButton';
 import SchedulerList from '../SchedulerList';
 import SchedulerCard from '../SchedulerCard';
-import api from '../../Services/api';
+import axios from 'axios';
 
 const SchedulerData = () => {
   const [schedules, setSchedules] = useState([]);
   const [isSchedulerCardVisible, setSchedulerCardVisibility] = useState(false);
   const [editedSchedule, setEditedSchedule] = useState(null);
+  const api_url = "http://localhost:3001/schedules";
 
   useEffect(() => {
-    api.get('/schedules').then((response) => setSchedules(response.data));
+    loadSchedules();
   }, []);
+
+  const loadSchedules = async () => {
+    try {
+      const response = await axios.get(api_url);
+      setSchedules(response.data);
+    } catch (error) {
+      console.error('Error loading schedules:', error);
+    }
+  };
 
   const openSchedulerCard = (schedule) => {
     setEditedSchedule(schedule);
@@ -28,37 +38,33 @@ const SchedulerData = () => {
   const handleSchedulerSubmit = async (formData) => {
     try {
       if (editedSchedule) {
-        // If editing an existing schedule, make an API request to update it
-        await api.put(`/schedules/${editedSchedule.id}`, formData);
+        await axios.put(`${api_url}/${editedSchedule.id}`, formData);
       } else {
-        // If creating a new schedule, make an API request to create it
-        await api.post('/schedules', formData);
+        await axios.post(api_url, formData);
       }
 
-      // Refresh the schedule list after the update or create operation
-      const response = await api.get('/schedules');
-      setSchedules(response.data);
+      // Reload schedules after submission
+      loadSchedules();
 
       // Close the scheduler card form
       closeSchedulerCard();
     } catch (error) {
       console.error('Error submitting schedule:', error);
-      // Handle the error as needed
+      // Handle the error as needed (e.g., show a user-friendly error message)
     }
   };
+
   const handleDelete = async (scheduleId) => {
     try {
-      // Make an API request to delete the schedule
-      await api.delete(`/schedules/${scheduleId}`);
-
-      // Refresh the schedule list after the delete operation
-      const response = await api.get('/schedules');
-      setSchedules(response.data);
+      await axios.delete(`${api_url}/${scheduleId}`);
+      // Reload schedules after deletion
+      loadSchedules();
     } catch (error) {
       console.error('Error deleting schedule:', error);
       // Handle the error as needed
     }
   };
+
   return (
     <div className="schedulerData">
       <div className="search-add-field">
@@ -77,7 +83,7 @@ const SchedulerData = () => {
         )}
       </div>
       <div className="container">
-        <SchedulerList schedules={schedules} onEdit={openSchedulerCard} onDelete={handleDelete }/>
+        <SchedulerList schedules={schedules} onEdit={openSchedulerCard} onDelete={handleDelete} />
       </div>
     </div>
   );

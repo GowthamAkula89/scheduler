@@ -23,8 +23,8 @@ const SchedulerList = ({ schedules, onEdit, onDelete }) => {
             </tr>
           </thead>
           <tbody>
-            {schedules.map((schedule) => (
-              <tr key={schedule.id}>
+            {schedules.map((schedule,index) => (
+              <tr key={index}>
                 <td className="table-body-text" style={{ paddingLeft: '5px' }}>
                   {schedule.title}
                 </td>
