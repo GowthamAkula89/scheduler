@@ -13,7 +13,7 @@
 .add-btn{
     cursor: pointer;
 }
-.sheduler-card-form{
+.scheduler-card-form{
     position: absolute;
     overflow-y: auto;
     z-index: 1;
