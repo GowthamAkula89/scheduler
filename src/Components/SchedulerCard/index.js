@@ -1,20 +1,24 @@
-import React, { useState,useEffect } from "react";
-import "./schedulerCard.css";
+// SchedulerCard.js
+import React, { useState, useEffect } from 'react';
+import './schedulerCard.css';
+import RepeatField from '../RepeatField';
 
-const SchedulerCard = ({title, schedule, onCancel, onSubmit }) => {
+const SchedulerCard = ({ title, schedule, onCancel, onSubmit }) => {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    subject: "",
-    frequency: "Daily",
-    repeat: "",
-    selectedTime: "",
+    title: '',
+    description: '',
+    subject: '',
+    frequency: 'Daily',
+    repeat: '',
+    selectedTime: '',
   });
+
   useEffect(() => {
     if (schedule) {
       setFormData({ ...schedule });
     }
   }, [schedule]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -44,92 +48,57 @@ const SchedulerCard = ({title, schedule, onCancel, onSubmit }) => {
     console.log("Form submitted with data:", formData);
   };
 
-  const renderRepeatField = () => {
-    if (formData.frequency === "Weekly") {
-      return (
-        <div className="card-data">
-          <p className="card-text">Repeat</p>
-          <div className="weekdays">
-            {['S', 'M', 'T', 'W', 'Th', 'F', 'Su'].map((day, index) => (
-              <button
-                key={index}
-                type="button"
-                className={`weekday ${formData.repeat === day ? 'active' : ''}`}
-                onClick={() => handleRepeatChange({ target: { value: day } })}
-              >
-                {day}
-              </button>
-            ))}
-          </div>
-        </div>
-      );
-    } else if (formData.frequency === "Monthly") {
-      return (
-        <div className="card-data">
-          <p className="card-text">Repeat</p>
-          <select
-            className="card-input"
-            name="repeat"
-            value={formData.repeat}
-            onChange={handleRepeatChange}
-          >
-            <option value="firstMonday">First Monday</option>
-            <option value="lastFriday">Last Friday</option>
-          </select>
-        </div>
-      );
-    } else {
-      return null;
-    }
-  };
-
   return (
     <form className="scheduler-card" onSubmit={handleSubmit}>
-    <p className="form-header">{title}</p>
-    <div className="card-data">
-      <p className="card-text">Title</p>
-      <input
-        className="card-input"
-        type="text"
-        name="title"
-        value={formData.title}
-        onChange={handleInputChange}
+      <p className="form-header">{title}</p>
+      <div className="card-data">
+        <p className="card-text">Title</p>
+        <input
+          className="card-input"
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="card-data">
+        <p className="card-text">Description</p>
+        <input
+          className="card-input"
+          type="text"
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="card-data">
+        <p className="card-text">Subject</p>
+        <input
+          className="card-input"
+          type="text"
+          name="subject"
+          value={formData.subject}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="card-data">
+        <p className="card-text">Frequency</p>
+        <select
+          className="card-input"
+          name="frequency"
+          value={formData.frequency}
+          onChange={handleInputChange}
+        >
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Monthly">Monthly</option>
+        </select>
+      </div>
+      <RepeatField
+        frequency={formData.frequency}
+        repeat={formData.repeat}
+        handleRepeatChange={handleRepeatChange}
       />
-    </div>
-    <div className="card-data">
-      <p className="card-text">Description</p>
-      <input
-        className="card-input"
-        type="text"
-        name="description"
-        value={formData.description}
-        onChange={handleInputChange}
-      />
-    </div>
-    <div className="card-data">
-      <p className="card-text">Subject</p>
-      <input
-        className="card-input"
-        type="text"
-        name="subject"
-        value={formData.subject}
-        onChange={handleInputChange}
-      />
-    </div>
-    <div className="card-data">
-      <p className="card-text">Frequency</p>
-      <select
-        className="card-input"
-        name="frequency"
-        value={formData.frequency}
-        onChange={handleInputChange}
-      >
-        <option value="Daily">Daily</option>
-        <option value="Weekly">Weekly</option>
-        <option value="Monthly">Monthly</option>
-      </select>
-    </div>
-      {renderRepeatField()}
       <div className="card-data">
         <p className="card-text">Time</p>
         <select
@@ -155,7 +124,7 @@ const SchedulerCard = ({title, schedule, onCancel, onSubmit }) => {
           Cancel
         </button>
         <button className="done-btn" type="submit">
-        {title !=="Add Schedule" ? "Update" : "Done"}
+          {title !=="Add Schedule" ? "Update" : "Done"}
         </button>
       </div>
     </form>

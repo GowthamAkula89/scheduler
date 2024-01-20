@@ -65,7 +65,7 @@
  }
  .handle-submit{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     text-align: end;
     gap: 18px;
     padding: 12px 16px 16px 12px;
