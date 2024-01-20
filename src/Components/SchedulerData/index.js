@@ -5,16 +5,44 @@ import AddButton from '../AddButton';
 import SchedulerList from '../SchedulerList';
 import SchedulerCard from '../SchedulerCard';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const SchedulerData = () => {
   const [schedules, setSchedules] = useState([]);
   const [isSchedulerCardVisible, setSchedulerCardVisibility] = useState(false);
   const [editedSchedule, setEditedSchedule] = useState(null);
-  const api_url = "http://localhost:3001/schedules";
+  const [debounceTimer, setDebounceTimer] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
+  const api_url = 'http://localhost:3001/schedules';
 
   useEffect(() => {
     loadSchedules();
   }, []);
+
+  const handleSearch = (searchValue) => {
+    const filtered = schedules.filter((schedule) =>
+      Object.values(schedule).some((value) =>
+        value.toString().toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+    setSchedules(filtered);
+    if (filtered.length === 0) {
+      enqueueSnackbar('No matching schedules found', { variant: 'error' });
+    }
+  };
+
+  const deBounceSearch = (event) => {
+    const searchValue = event.target.value;
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
+
+    const timer = setTimeout(() => {
+      handleSearch(searchValue);
+    }, 500);
+
+    setDebounceTimer(timer);
+  };
 
   const loadSchedules = async () => {
     try {
@@ -22,6 +50,7 @@ const SchedulerData = () => {
       setSchedules(response.data);
     } catch (error) {
       console.error('Error loading schedules:', error);
+      enqueueSnackbar('Error loading schedules', { variant: 'error' });
     }
   };
 
@@ -42,39 +71,34 @@ const SchedulerData = () => {
       } else {
         await axios.post(api_url, formData);
       }
-
-      // Reload schedules after submission
       loadSchedules();
-
-      // Close the scheduler card form
       closeSchedulerCard();
     } catch (error) {
       console.error('Error submitting schedule:', error);
-      // Handle the error as needed (e.g., show a user-friendly error message)
+      enqueueSnackbar('Error submitting schedule', { variant: 'error' });
     }
   };
 
   const handleDelete = async (scheduleId) => {
     try {
       await axios.delete(`${api_url}/${scheduleId}`);
-      // Reload schedules after deletion
       loadSchedules();
     } catch (error) {
       console.error('Error deleting schedule:', error);
-      // Handle the error as needed
+      enqueueSnackbar('Error deleting schedule', { variant: 'error' });
     }
   };
 
   return (
     <div className="schedulerData">
       <div className="search-add-field">
-        <Search />
+        <Search onChange={deBounceSearch} />
         <AddButton onClick={() => openSchedulerCard(null, {})} />
 
         {isSchedulerCardVisible && (
-          <div className="sheduler-card-form">
+          <div className="scheduler-card-form">
             <SchedulerCard
-              title={"Add Schedule"}
+              title={editedSchedule ? 'Edit Schedule' : 'Add Schedule'}
               schedule={editedSchedule}
               onCancel={closeSchedulerCard}
               onSubmit={handleSchedulerSubmit}

@@ -12,7 +12,6 @@ const SchedulerCard = ({title, schedule, onCancel, onSubmit }) => {
   });
   useEffect(() => {
     if (schedule) {
-      // If editing existing schedule, populate the form with schedule data
       setFormData({ ...schedule });
     }
   }, [schedule]);
