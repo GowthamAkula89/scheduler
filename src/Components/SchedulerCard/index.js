@@ -1,4 +1,3 @@
-// SchedulerCard.js
 import React, { useState, useEffect } from 'react';
 import './schedulerCard.css';
 import RepeatField from '../RepeatField';
